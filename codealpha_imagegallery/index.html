@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus Frame Gallery</title>
+
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1c1c2b, #0f0f1a);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 25px;
+  letter-spacing: 2px;
+}
+
+/* Category bar */
+nav {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav button {
+  background: transparent;
+  border: 1px solid #666;
+  color: #fff;
+  padding: 8px 18px;
+  margin: 5px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+nav button:hover {
+  background: #ff5f6d;
+  border-color: transparent;
+}
+
+/* Masonry layout */
+.gallery {
+  column-count: 3;
+  column-gap: 15px;
+  padding: 15px;
+}
+
+.frame {
+  break-inside: avoid;
+  margin-bottom: 15px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.frame img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.frame:hover img {
+  transform: scale(1.08);
+}
+
+/* Focus mode */
+.focus-view {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.focus-view img {
+  max-width: 85%;
+  max-height: 80%;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .gallery { column-count: 2; }
+}
+@media(max-width: 500px) {
+  .gallery { column-count: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Focus Frame Gallery</h1>
+  <p>Click an image • Press A / D to navigate • Esc to close</p>
+</header>
+
+<nav>
+  <button onclick="filterFrames('all')">All</button>
+  <button onclick="filterFrames('nature')">Nature</button>
+  <button onclick="filterFrames('urban')">Urban</button>
+</nav>
+
+<section class="gallery">
+  <div class="frame nature"><img src="https://picsum.photos/id/1016/500/700"></div>
+  <div class="frame urban"><img src="https://picsum.photos/id/1020/500/600"></div>
+  <div class="frame nature"><img src="https://picsum.photos/id/1039/500/650"></div>
+  <div class="frame urban"><img src="https://picsum.photos/id/1043/500/750"></div>
+  <div class="frame nature"><img src="https://picsum.photos/id/1056/500/680"></div>
+</section>
+
+<div class="focus-view" id="focusView">
+  <img id="focusImage">
+</div>
+
+<script>
+const frames = document.querySelectorAll('.frame img');
+const viewer = document.getElementById('focusView');
+const focusImage = document.getElementById('focusImage');
+let activeIndex = 0;
+
+frames.forEach((img, i) => {
+  img.addEventListener('click', () => {
+    activeIndex = i;
+    openFocus();
+  });
+});
+
+function openFocus() {
+  viewer.style.display = 'flex';
+  focusImage.src = frames[activeIndex].src;
+}
+
+function closeFocus() {
+  viewer.style.display = 'none';
+}
+
+document.addEventListener('keydown', e => {
+  if (viewer.style.display !== 'flex') return;
+
+  if (e.key === 'Escape') closeFocus();
+  if (e.key.toLowerCase() === 'a') move(-1);
+  if (e.key.toLowerCase() === 'd') move(1);
+});
+
+function move(step) {
+  activeIndex = (activeIndex + step + frames.length) % frames.length;
+  focusImage.src = frames[activeIndex].src;
+}
+
+viewer.addEventListener('click', closeFocus);
+
+function filterFrames(type) {
+  document.querySelectorAll('.frame').forEach(frame => {
+    frame.style.display =
+      type === 'all' || frame.classList.contains(type)
+      ? 'block'
+      : 'none';
+  });
+}
+</script>
+
+</body>
+</html>

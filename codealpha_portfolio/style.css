@@ -1,0 +1,139 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0f172a;
+  color: white;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 40%),
+    linear-gradient(135deg, #020617, #0f172a, #020617);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+
+.hero p {
+  margin-top: 10px;
+  color: #94a3b8;
+}
+
+/* BUTTON */
+.btn {
+  margin-top: 30px;
+  padding: 14px 36px;
+  background: #38bdf8;
+  color: #020617;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(56,189,248,0.4);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  background: #020617;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  z-index: 100;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* SECTIONS */
+section {
+  padding: 80px 10%;
+  scroll-margin-top: 80px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #38bdf8;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 🔥 FIX FOR HIRE ME */
+section:target {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* SKILLS */
+.skills span {
+  background: #1e293b;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 10px;
+  display: inline-block;
+}
+
+/* PROJECTS */
+.project {
+  background-color: #1e293b;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.project:hover {
+  transform: scale(1.05);
+  background-color: #334155;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  background: black;
+  color: gray;
+}
